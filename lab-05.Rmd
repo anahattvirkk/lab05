@@ -48,8 +48,7 @@ There are `r num_pairings` distances that we need to calculate.
 ### Exercise 3
 
 ```{r joining-dataframes}
-dn_lq_ak <- full_join(dn_ak, lq_ak,
-  by = "state")
+dn_lq_ak <- full_join(dn_ak, lq_ak, by = "state")
 
 dn_lq_ak
 ```
@@ -99,8 +98,6 @@ dn_lq_ak_mindist <- dn_lq_ak %>%
 dn_lq_ak_mindist
 ```
 
-The minimum distances from a La Quinta hotel for each Denny's location are 2, 5.2, and 6 km. 
-
 ### Exercise 8
 
 ```{r summarystats}
@@ -119,6 +116,70 @@ ggsave("dennys_la_quinta_distances.png")
 The distances from Denny's to their nearest La Quinta locations in Alaska range from 2 km to 6 km, with an average of 4.4 km. The median distance is 5.2 km. 
 
 ### Exercise 9
+
+```{r dennys-nc}
+dn_nc <- dennys %>%
+  filter(state == "NC")
+  nrow(dn_nc)
+```
+
+There are `r nrow(dn_nc)` Denny's locations in North Carolina. 
+
+```{r laquinta-nc}
+lq_nc <- laquinta %>%
+  filter(state == "NC")
+  nrow(lq_nc)
+```
+
+There are `r nrow(lq_nc)` La Quinta hotels in North Carolina. 
+
+```{r nc-pairings}
+num_dennys_nc <- nrow(dn_nc)
+num_lq_nc <- nrow(lq_nc)
+
+num_pairings_nc <- num_dennys_nc * num_lq_nc
+```
+
+There are `r num_pairings_nc` distances that we need to calculate.
+
+```{r nc-joining}
+dn_lq_nc <- full_join(dn_nc, lq_nc, by = "state")
+
+dn_lq_nc
+```
+
+```{r nc-add-variable}
+dn_lq_nc <- dn_lq_nc %>%
+  mutate(distance = haversine(
+    long1 = longitude.x,
+    lat1 = latitude.x,
+    long2 = longitude.y,
+    lat2 = latitude.y,
+    round = 1))
+```
+
+```{r nc-mindist}
+dn_lq_nc_mindist <- dn_lq_nc %>%
+  group_by(address.x) %>%
+  summarize(closest = min(distance))
+
+dn_lq_nc_mindist
+```
+
+```{r summarystats-nc}
+summary(dn_lq_nc_mindist)
+```
+
+```{r visualization-nc}
+ggplot(dn_lq_nc_mindist, aes(y = closest)) +
+  geom_boxplot() + 
+  labs(title = "Distances from Denny's to Nearest La Quinta (North Carolina)", y = "Distance (km)")+
+  theme_minimal()
+
+ggsave("dennys_nc_distances.png")
+```
+
+The distances from Denny's to their nearest La Quinta locations in North Carolina range from 1.8 km to 187.9 km, with an average of 65.44 km. The median distance is 53.45 km. 
 
 ### Exercise 10
 
