@@ -47,11 +47,16 @@ There are `r num_pairings` distances that we need to calculate.
 
 ### Exercise 3
 
-...
+```{r joining-dataframes}
+dn_lq_ak <- full_join(dn_ak, lq_ak,
+  by = "state")
+
+dn_lq_ak
+```
 
 ### Exercise 4
 
-...
+In the joined data frame there are 6 total observations. The variables include 
 
 ### Exercise 5
 
@@ -61,4 +66,14 @@ There are `r num_pairings` distances that we need to calculate.
 
 ...
 
-Add exercise headings as needed.
+### Exercise 7
+
+### Exercise 8
+
+### Exercise 9
+
+### Exercise 10
+
+### Exercise 11
+
+### Exercise 12
