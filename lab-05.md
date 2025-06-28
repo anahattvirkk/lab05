@@ -104,7 +104,15 @@ return(round(d, round)) # distance in km
 
 ### Exercise 6
 
-…
+``` r
+dn_lq_ak <- dn_lq_ak %>%
+  mutate(distance = haversine(
+    long1 = longitude.x,
+    lat1 = latitude.x,
+    long2 = longitude.y,
+    lat2 = latitude.y,
+    round = 1))
+```
 
 ### Exercise 7
 
