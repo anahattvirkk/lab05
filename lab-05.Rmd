@@ -103,6 +103,8 @@ The minimum distances from a La Quinta hotel for each Denny's location are 2, 5.
 
 ### Exercise 8
 
+
+
 ### Exercise 9
 
 ### Exercise 10
@@ -110,3 +112,5 @@ The minimum distances from a La Quinta hotel for each Denny's location are 2, 5.
 ### Exercise 11
 
 ### Exercise 12
+
+Among the states examined, Mitch Hedberg's joke is most likely to hold true in...

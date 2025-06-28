@@ -143,3 +143,6 @@ are 2, 5.2, and 6 km.
 ### Exercise 11
 
 ### Exercise 12
+
+Among the states examined, Mitch Hedberg’s joke is most likely to hold
+true in…
