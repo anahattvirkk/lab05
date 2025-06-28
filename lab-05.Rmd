@@ -183,8 +183,136 @@ The distances from Denny's to their nearest La Quinta locations in North Carolin
 
 ### Exercise 10
 
+```{r dennys-tx}
+dn_tx <- dennys %>%
+  filter(state == "TX")
+  nrow(dn_tx)
+```
+
+There are `r nrow(dn_tx)` Denny's locations in Texas. 
+
+```{r laquinta-tx}
+lq_tx <- laquinta %>%
+  filter(state == "TX")
+  nrow(lq_tx)
+```
+
+There are `r nrow(lq_tx)` La Quinta hotels in Texas.
+
+```{r tx-pairings}
+num_dennys_tx <- nrow(dn_tx)
+num_lq_tx <- nrow(lq_tx)
+
+num_pairings_tx <- num_dennys_tx * num_lq_tx
+```
+
+There are `r num_pairings_tx` distances that we need to calculate.
+
+```{r tx-joining}
+dn_lq_tx <- full_join(dn_tx, lq_tx, by = "state")
+
+dn_lq_tx
+```
+
+```{r tx-add-variable}
+dn_lq_tx <- dn_lq_tx %>%
+  mutate(distance = haversine(
+    long1 = longitude.x,
+    lat1 = latitude.x,
+    long2 = longitude.y,
+    lat2 = latitude.y,
+    round = 1))
+```
+
+```{r tx-mindist}
+dn_lq_tx_mindist <- dn_lq_tx %>%
+  group_by(address.x) %>%
+  summarize(closest = min(distance))
+
+dn_lq_tx_mindist
+```
+
+```{r summarystats-tx}
+summary(dn_lq_tx_mindist)
+```
+
+```{r visualization-tx}
+ggplot(dn_lq_tx_mindist, aes(y = closest)) +
+  geom_boxplot() + 
+  labs(title = "Distances from Denny's to Nearest La Quinta (Texas)", y = "Distance (km)")+
+  theme_minimal()
+
+ggsave("dennys_tx_distances.png")
+```
+
+The distances from Denny's to their nearest La Quinta locations in Texas range from 0.0 km to 60.6 km, with an average of 5.8 km. The median distance is 3.4 km. 
+
 ### Exercise 11
+
+```{r dennys-nj}
+dn_nj <- dennys %>%
+  filter(state == "NJ")
+  nrow(dn_nj)
+```
+
+There are `r nrow(dn_nj)` Denny's locations in New Jersey.
+
+```{r laquinta-nj}
+lq_nj <- laquinta %>%
+  filter(state == "NJ")
+  nrow(lq_nj)
+```
+
+There are `r nrow(lq_nj)` La Quinta hotels in New Jersey.
+
+```{r nj-pairings}
+num_dennys_nj <- nrow(dn_nj)
+num_lq_nj <- nrow(lq_nj)
+
+num_pairings_nj <- num_dennys_nj * num_lq_nj
+```
+
+There are `r num_pairings_nj` distances that we need to calculate.
+
+```{r nj-joining}
+dn_lq_nj <- full_join(dn_nj, lq_nj, by = "state", relationship = "many-to-many")
+
+dn_lq_nj
+```
+
+```{r nj-add-variable}
+dn_lq_nj <- dn_lq_nj %>%
+  mutate(distance = haversine(
+    long1 = longitude.x,
+    lat1 = latitude.x,
+    long2 = longitude.y,
+    lat2 = latitude.y,
+    round = 1))
+```
+
+```{r nj-mindist}
+dn_lq_nj_mindist <- dn_lq_nj %>%
+  group_by(address.x) %>%
+  summarize(closest = min(distance))
+
+dn_lq_nj_mindist
+```
+
+```{r summarystats-nj}
+summary(dn_lq_nj_mindist)
+```
+
+```{r visualization-nj}
+ggplot(dn_lq_nj_mindist, aes(y = closest)) +
+  geom_boxplot() + 
+  labs(title = "Distances from Denny's to Nearest La Quinta (New Jersey)", y = "Distance (km)")+
+  theme_minimal()
+
+ggsave("dennys_n=j_distances.png")
+```
+
+The distances from Denny's to their nearest La Quinta locations in New Jersey range from 15.4 km to 69.1 km, with an average of 42.3 km. The median distance is 41.5 km. 
 
 ### Exercise 12
 
-Among the states examined, Mitch Hedberg's joke is most likely to hold true in...
+Among the states examined, Mitch Hedberg's joke is most likely to hold true in Texas. Texas has the highest number of both Denny's and La Quinta locations, and their locations are extremely close. The lowest distance between them is 0.0 km, and the mean distance is 5.8 km, reflecting their close proximity to one another in Texas. While the greatest distance is 60.6 km, the low median and mean suggest that this is likely an outlier.
