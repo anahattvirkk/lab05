@@ -103,7 +103,20 @@ The minimum distances from a La Quinta hotel for each Denny's location are 2, 5.
 
 ### Exercise 8
 
+```{r summarystats}
+summary(dn_lq_ak_mindist)
+```
 
+```{r visualization}
+ggplot(dn_lq_ak_mindist, aes(y = closest)) +
+  geom_boxplot() + 
+  labs(title = "Distances from Denny's to Nearest La Quinta (Alaska)", y = "Distance (km)") + 
+  theme_minimal()
+
+ggsave("dennys_la_quinta_distances.png")
+```
+
+The distances from Denny's to their nearest La Quinta locations in Alaska range from 2 km to 6 km, with an average of 4.4 km. The median distance is 5.2 km. 
 
 ### Exercise 9
 
