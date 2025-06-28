@@ -78,7 +78,10 @@ dn_lq_ak
 ### Exercise 4
 
 In the joined data frame there are 6 total observations. The variables
-include
+include address, city, state, zip code, longitude, and latitude. Each of
+these variables repeats twice, one coming from the Denny’s dataset, and
+the other coming from the La Quinta dataset. However, the state variable
+only appears once as it was the join key.
 
 ### Exercise 5
 
