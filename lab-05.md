@@ -38,9 +38,14 @@ There are 2 La Quinta hotels in Alaska.
 
 ### Exercise 2
 
-Remove this text, and add your answer for Exercise 1 here. Add code
-chunks as needed. Don’t forget to label your code chunk. Do not use
-spaces in code chunk labels.
+``` r
+num_dennys <- nrow(dn_ak)
+num_lq <- nrow(lq_ak)
+
+num_pairings <- num_dennys * num_lq
+```
+
+There are 6 distances that we need to calculate.
 
 ### Exercise 3
 
