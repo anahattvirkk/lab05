@@ -116,6 +116,24 @@ dn_lq_ak <- dn_lq_ak %>%
 
 ### Exercise 7
 
+``` r
+dn_lq_ak_mindist <- dn_lq_ak %>%
+  group_by(address.x) %>%
+  summarize(closest = min(distance))
+
+dn_lq_ak_mindist
+```
+
+    ## # A tibble: 3 × 2
+    ##   address.x        closest
+    ##   <chr>              <dbl>
+    ## 1 1929 Airport Way     5.2
+    ## 2 2900 Denali          2  
+    ## 3 3850 Debarr Road     6
+
+The minimum distances from a La Quinta hotel for each Denny’s location
+are 2, 5.2, and 6 km.
+
 ### Exercise 8
 
 ### Exercise 9
